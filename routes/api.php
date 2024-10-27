@@ -4,6 +4,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\UserProfileController;
+use App\Http\Controllers\FollowController;
 
 /*
 |--------------------------------------------------------------------------
@@ -33,6 +34,15 @@ Route::group(['middleware' => 'auth:sanctum'], function () {
             Route::post('/create', 'createProfile');
             Route::put('/', 'updateProfile');
             Route::delete('/', 'deleteProfile');
+        });
+    });
+
+    Route::prefix('user')->group(function () {
+        Route::controller(FollowController::class)->group(function () {
+            Route::get('/followers', 'getFollowers');
+            Route::get('/followings', 'getFollowings');
+            Route::post('/follow/{id}', 'followUser');
+            Route::post('/unfollow/{id}', 'unfollowUser');
         });
     });
 });

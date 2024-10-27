@@ -35,6 +35,16 @@ class AppServiceProvider extends ServiceProvider
             'App\Services\Contracts\IUserProfileService',
             'App\Services\UserProfileService'
         );
+
+        $this->app->bind(
+            'App\Services\Contracts\IUserService',
+            'App\Services\UserService'
+        );
+
+        $this->app->bind(
+            'App\Services\Contracts\IFollowService',
+            'App\Services\FollowService'
+        );
     }
 
     /**
