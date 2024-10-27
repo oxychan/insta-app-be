@@ -6,11 +6,11 @@ use App\Http\Requests\LoginRequest;
 use App\Http\Requests\RegisterRequest;
 use App\Http\Resources\LoginResource;
 use App\Http\Resources\UserResource;
-use App\Services\AuthService;
+use App\Services\Contracts\IAuthService;
 
 class AuthController extends BaseController
 {
-    public function __construct(protected AuthService $authService) {}
+    public function __construct(protected IAuthService $authService) {}
 
     public function register(RegisterRequest $request)
     {
@@ -27,7 +27,12 @@ class AuthController extends BaseController
     public function login(LoginRequest $request)
     {
         try {
-            $user = $this->authService->login($request->validated());
+            $validated = $request->validated();
+            $user = $this->authService->login($validated);
+
+            if (!$user) {
+                return $this->errorResponse('Invalid credentials', 401);
+            }
 
             return $this->successResponse(new LoginResource($user), 'User logged in successfully');
         } catch (\Exception $e) {

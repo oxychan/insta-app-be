@@ -2,8 +2,6 @@
 
 namespace App\Repositories\Contracts;
 
-use App\Models\User;
-
 interface IAuthRepository
 {
   public function createUser(array $user);

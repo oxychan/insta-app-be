@@ -4,17 +4,25 @@ namespace App\Services;
 
 use App\Models\User;
 use App\Services\Contracts\IAuthService;
-use App\Repositories\AuthRepository;
+use App\Repositories\Contracts\IAuthRepository;
+use App\Repositories\Contracts\IUserProfileRepository;
+use App\Services\Contracts\IUserProfileService;
 use Illuminate\Contracts\Auth\Authenticatable;
 use Illuminate\Support\Facades\Auth;
 
 class AuthService implements IAuthService
 {
-  public function __construct(protected AuthRepository $authRepository) {}
+  public function __construct(
+    protected IAuthRepository $authRepository,
+    protected IUserProfileRepository $userProfileRepository
+  ) {}
 
   public function register(array $data)
   {
-    return $this->authRepository->createUser($data);
+    $user = $this->authRepository->createUser($data);
+    $this->userProfileRepository->createProfile(['user_id' => $user->id]);
+
+    return $user;
   }
 
   public function login(array $credentials)

@@ -20,6 +20,21 @@ class AppServiceProvider extends ServiceProvider
             'App\Repositories\Contracts\IAuthRepository',
             'App\Repositories\AuthRepository'
         );
+
+        $this->app->bind(
+            'App\Repositories\Contracts\IUserRepository',
+            'App\Repositories\UserRepository'
+        );
+
+        $this->app->bind(
+            'App\Repositories\Contracts\IUserProfileRepository',
+            'App\Repositories\UserProfileRepository'
+        );
+
+        $this->app->bind(
+            'App\Services\Contracts\IUserProfileService',
+            'App\Services\UserProfileService'
+        );
     }
 
     /**
