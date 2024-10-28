@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Services\Contracts\IFollowService;
+use App\Http\Resources\FollowResource;
+use App\Http\Resources\UserResource;
 
 class FollowController extends BaseController
 {
@@ -14,7 +16,9 @@ class FollowController extends BaseController
         try {
             $follow = $this->followService->follow($id);
 
-            return $this->successResponse($follow, 'User followed successfully', 201);
+            return $this->successResponse($follow['data'], $follow['message'], $follow['status_code']);
+        } catch (\Illuminate\Database\Eloquent\ModelNotFoundException $e) {
+            return $this->errorResponse('User not found', 404);
         } catch (\Exception $e) {
             return $this->errorResponse($e->getMessage(), 400);
         }
@@ -25,7 +29,9 @@ class FollowController extends BaseController
         try {
             $follow = $this->followService->unfollow($id);
 
-            return $this->successResponse($follow, 'User unfollowed successfully');
+            return $this->successResponse($follow['data'], $follow['message'], $follow['status_code']);
+        } catch (\Illuminate\Database\Eloquent\ModelNotFoundException $e) {
+            return $this->errorResponse('User not found', 404);
         } catch (\Exception $e) {
             return $this->errorResponse($e->getMessage(), 400);
         }

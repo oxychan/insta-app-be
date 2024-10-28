@@ -63,7 +63,6 @@ class Handler extends ExceptionHandler
             ], 403);
         }
 
-
         return parent::render($request, $exception);
     }
 }
