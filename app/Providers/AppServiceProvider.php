@@ -45,6 +45,21 @@ class AppServiceProvider extends ServiceProvider
             'App\Services\Contracts\IFollowService',
             'App\Services\FollowService'
         );
+
+        $this->app->bind(
+            'App\Repositories\Contracts\IPostRepository',
+            'App\Repositories\PostRepository'
+        );
+
+        $this->app->bind(
+            'App\Services\Contracts\IPostService',
+            'App\Services\PostService'
+        );
+
+        $this->app->bind(
+            'App\Services\Contracts\IS3StorageService',
+            'App\Services\S3StorageService'
+        );
     }
 
     /**

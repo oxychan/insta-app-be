@@ -5,6 +5,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\UserProfileController;
 use App\Http\Controllers\FollowController;
+use App\Http\Controllers\PostController;
 
 /*
 |--------------------------------------------------------------------------
@@ -43,6 +44,17 @@ Route::group(['middleware' => 'auth:sanctum'], function () {
             Route::get('/followings', 'getFollowings');
             Route::post('/follow/{id}', 'followUser');
             Route::post('/unfollow/{id}', 'unfollowUser');
+        });
+    });
+
+    Route::prefix('posts')->group(function () {
+        Route::controller(PostController::class)->group(function () {
+            Route::get('/', 'getPosts');
+            Route::get('/user', 'getCurrentUserPosts');
+            Route::get('/{id}', 'getPostById');
+            Route::post('/create', 'createPost');
+            Route::put('/{id}', 'updatePost');
+            Route::delete('/{id}', 'deletePost');
         });
     });
 });

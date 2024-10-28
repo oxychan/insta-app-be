@@ -4,9 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\UserProfileRequest;
 use App\Http\Resources\UserProfileResource;
-use App\Models\UserProfile;
 use App\Services\Contracts\IUserProfileService;
-use Illuminate\Http\Request;
 
 class UserProfileController extends BaseController
 {
