@@ -60,6 +60,16 @@ class AppServiceProvider extends ServiceProvider
             'App\Services\Contracts\IS3StorageService',
             'App\Services\S3StorageService'
         );
+
+        $this->app->bind(
+            'App\Repositories\Contracts\ILikeRepository',
+            'App\Repositories\LikeRepository'
+        );
+
+        $this->app->bind(
+            'App\Services\Contracts\ILikeService',
+            'App\Services\LikeService'
+        );
     }
 
     /**

@@ -17,7 +17,7 @@ class PostRepository implements IPostRepository
 
   public function getPostById(int $id)
   {
-    return $this->post->find($id);
+    return $this->post->findOrFail($id);
   }
 
   public function getPosts()

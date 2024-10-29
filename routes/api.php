@@ -5,6 +5,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\UserProfileController;
 use App\Http\Controllers\FollowController;
+use App\Http\Controllers\LikeController;
 use App\Http\Controllers\PostController;
 
 /*
@@ -55,6 +56,12 @@ Route::group(['middleware' => 'auth:sanctum'], function () {
             Route::post('/create', 'createPost');
             Route::put('/{id}', 'updatePost');
             Route::delete('/{id}', 'deletePost');
+        });
+
+        Route::controller(LikeController::class)->group(function () {
+            Route::post('/like/{id}', 'likePost');
+            Route::post('/unlike/{id}', 'unlikePost');
+            Route::get('/likes/{id}', 'getLikes');
         });
     });
 });
