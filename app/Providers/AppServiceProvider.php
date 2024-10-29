@@ -70,6 +70,16 @@ class AppServiceProvider extends ServiceProvider
             'App\Services\Contracts\ILikeService',
             'App\Services\LikeService'
         );
+
+        $this->app->bind(
+            'App\Repositories\Contracts\ICommentRepository',
+            'App\Repositories\CommentRepository'
+        );
+
+        $this->app->bind(
+            'App\Services\Contracts\ICommentService',
+            'App\Services\CommentService'
+        );
     }
 
     /**

@@ -7,6 +7,7 @@ use App\Http\Controllers\UserProfileController;
 use App\Http\Controllers\FollowController;
 use App\Http\Controllers\LikeController;
 use App\Http\Controllers\PostController;
+use App\Http\Controllers\CommentController;
 
 /*
 |--------------------------------------------------------------------------
@@ -62,6 +63,14 @@ Route::group(['middleware' => 'auth:sanctum'], function () {
             Route::post('/like/{id}', 'likePost');
             Route::post('/unlike/{id}', 'unlikePost');
             Route::get('/likes/{id}', 'getLikes');
+        });
+
+        Route::controller(CommentController::class)->group(function () {
+            Route::get('/comments/{id}', 'getComments');
+            Route::post('/comment/{id}', 'createComment');
+            Route::put('/comment/{id}', 'updateComment');
+            Route::delete('/comment/{id}', 'deleteComment');
+            Route::post('/reply/{id}', 'replyComment');
         });
     });
 });
